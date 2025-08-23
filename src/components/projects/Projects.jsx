@@ -2,12 +2,12 @@ import { Github, ExternalLink } from 'lucide-react';
 const Projects = () => {
   const projects = [
     {
-      title: "Buy-and-Sell Platform",
+      title: "Harchizz",
       description: "A comprehensive e-commerce platform built with React.js and modern web technologies. Features user authentication, product management, and payment integration.",
-      tech: ["React.js", "Tailwind CSS", "Supabase", "Node.js"],
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+      tech: ["React.js", "Tailwind CSS", "Supabase"],
+      image: "./images/harchizz.png",
       github: "#",
-      demo: "#"
+      demo: "https://harchizz.com"
     },
     {
       title: "Portfolio Website",
@@ -18,12 +18,12 @@ const Projects = () => {
       demo: "#"
     },
     {
-      title: "Task Management App",
+      title: "Easy Home Solution",
       description: "A productivity application for managing tasks and projects. Features drag-and-drop functionality, real-time updates, and collaborative features.",
-      tech: ["React.js", "TypeScript", "Supabase"],
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
+      tech: ["ReactJS", "TailwindCSS" , "Supabase"],
+      image: "./images/ehsolution.png",
       github: "#",
-      demo: "#"
+      demo: "eh-solution.vercel.app"
     }
   ];
 
