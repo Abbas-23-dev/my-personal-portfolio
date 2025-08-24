@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Download, Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 
 // Reusable animation variants optimized for both page load and scroll triggers
 const animations = {
@@ -196,26 +196,29 @@ const HeartbeatButton = ({ children, onClick, className = "" }) => (
 );
 
 const Hero = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { 
+    once: false, // Changed to false for every scroll
+    threshold: 0.1, 
+    margin: "-100px 0px -100px 0px" 
+  });
+
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 lg:pt-0">
-      {/* Animated Background - triggers on both page load and scroll */}
+    <section id="home" ref={ref} className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 lg:pt-0">
+      {/* Animated Background - triggers on every scroll */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
+        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 1.5 }}
         className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"
       >
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 2, delay: 0.5 }}
           className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ff6b35\' fill-opacity=\'0.1\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'1\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] animate-pulse"
         ></motion.div>
@@ -224,13 +227,11 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 lg:py-16">
         <motion.div
           initial="hidden"
-          animate="visible"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }} // Triggers when 30% visible
+          animate={isInView ? "visible" : "hidden"} // Changed to trigger every scroll
           variants={animations.container}
           className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"
         >
-          {/* Text Content - Slides in from left on both page load and scroll */}
+          {/* Text Content - Slides in from left on every scroll */}
           <motion.div
             variants={animations.slideInLeft}
             className="text-center lg:text-left order-2 lg:order-1"
@@ -243,9 +244,7 @@ const Hero = () => {
               >
                 <motion.span
                   initial={{ backgroundPosition: '0% 50%' }}
-                  animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-                  whileInView={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-                  viewport={{ once: true }}
+                  animate={isInView ? { backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] } : { backgroundPosition: '0% 50%' }}
                   transition={{ 
                     duration: 4, 
                     repeat: Infinity, 
@@ -332,7 +331,7 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Image Section - Slides in from right on both page load and scroll */}
+          {/* Image Section - Slides in from right on every scroll */}
           <motion.div
             variants={animations.slideInRight}
             className="flex justify-center lg:justify-end order-1 lg:order-2 mb-6 lg:mb-0"
@@ -357,39 +356,31 @@ const Hero = () => {
                 </div>
               </motion.div>
               
-              {/* Floating Decorative Elements - Each triggers independently */}
+              {/* Floating Decorative Elements - Each triggers on every scroll */}
               <motion.div
                 initial="hidden"
-                animate="visible"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.8 }}
+                animate={isInView ? "visible" : "hidden"} // Changed to trigger every scroll
                 variants={animations.bounceIn}
                 transition={{ delay: 0.5 }}
                 className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-bounce"
               />
               <motion.div
                 initial="hidden"
-                animate="visible"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.8 }}
+                animate={isInView ? "visible" : "hidden"} // Changed to trigger every scroll
                 variants={animations.bounceIn}
                 transition={{ delay: 0.7 }}
                 className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 w-4 h-4 sm:w-6 sm:h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-bounce delay-300"
               />
               <motion.div
                 initial="hidden"
-                animate="visible"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.8 }}
+                animate={isInView ? "visible" : "hidden"} // Changed to trigger every scroll
                 variants={animations.bounceIn}
                 transition={{ delay: 0.9 }}
                 className="absolute top-1/4 -left-2 w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-ping delay-500"
               />
               <motion.div
                 initial="hidden"
-                animate="visible"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.8 }}
+                animate={isInView ? "visible" : "hidden"} // Changed to trigger every scroll
                 variants={animations.bounceIn}
                 transition={{ delay: 1.1 }}
                 className="absolute bottom-1/4 -right-1 w-2 h-2 sm:w-3 sm:h-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-ping delay-700"
@@ -398,12 +389,10 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* Scroll Indicator - Animates on both page load and scroll */}
+        {/* Scroll Indicator - Animates on every scroll */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 1.5 }}
           className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
         >
