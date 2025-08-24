@@ -196,7 +196,7 @@ const Projects = () => {
       tech: ["ReactJS", "TailwindCSS", "Supabase"],
       image: "./images/ehsolution.png",
       github: "#",
-      demo: "eh-solution.vercel.app"
+      demo: "https://eh-solution.vercel.app"
     }
   ];
 
